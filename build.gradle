@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.aurora_vn'
+version = '1.1'
+
+// Paper 1.20+ requires Java 17
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    mavenCentral()
+    
+    // Paper
+    maven {
+        name = 'papermc-repo'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+    
+    // DiscordSRV
+    maven {
+        name = 'Scarsz-Nexus'
+        url = 'https://nexus.scarsz.me/content/groups/public/'
+    }
+    
+    // LuckPerms
+    maven {
+        name = 'luck-repo'
+        url = 'https://repo.lucko.me/'
+    }
+}
+
+dependencies {
+    // Paper API
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    
+    // DiscordSRV
+    compileOnly 'com.discordsrv:discordsrv:1.27.0'
+    
+    // LuckPerms API
+    compileOnly 'net.luckperms:api:5.4'
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    
+    // No need to relocate if using compileOnly
+    // relocate 'net.dv8tion.jda', 'com.yourname.discordboostrank.jda'
+}
+
+tasks.build.dependsOn(shadowJar)
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+// Ensure Java compilation uses UTF-8
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
