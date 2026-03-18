@@ -1,0 +1,23 @@
+name: DiscordBoostRank
+version: ${version}
+main: com.aurora_vn.discordboostrank.DiscordBoostRank
+api-version: 1.20
+author: Aurora_VN
+description: Auto grant ranks when players boost Discord server
+website: https://aurora-vn.com
+
+depend:
+  - DiscordSRV
+  - LuckPerms
+
+commands:
+  boostrankadmin:
+    description: Admin commands for DiscordBoostRank
+    usage: /boostrankadmin <reload|check>
+    permission: discordboostrank.admin
+    aliases: [bra]
+
+permissions:
+  discordboostrank.admin:
+    description: Access to admin commands
+    default: op
