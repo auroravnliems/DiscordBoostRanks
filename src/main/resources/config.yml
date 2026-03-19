@@ -3,13 +3,13 @@
 # ==============================================
 # BOOST RANK TIERS
 # ==============================================
-# Cấu hình nhiều tier rank dựa trên số lượng boost
-# Player sẽ nhận rank cao nhất mà họ đủ điều kiện
+# Configure multiple rank tiers based on boost count
+# Players will receive the highest rank they qualify for
 boost-ranks:
   tier1:
-    name: "booster"           # Tên group trong LuckPerms
-    required-boosts: 1        # Cần ít nhất 1 boost
-    priority: 1               # Priority thấp hơn = rank cao hơn
+    name: "booster"           # Group name in LuckPerms
+    required-boosts: 1        # Requires at least 1 boost
+    priority: 1               # Lower priority = higher rank
     
   tier2:
     name: "SuperBooster"
@@ -24,162 +24,162 @@ boost-ranks:
 # ==============================================
 # AUTO-CREATION
 # ==============================================
-# Tự động tạo groups trong LuckPerms nếu chưa tồn tại
+# Automatically create groups in LuckPerms if they don't exist
 auto-create-groups:
   enabled: true
-  # Permissions sẽ được tự động thêm vào group
+  # Permissions that will be automatically added to the group
   default-permissions:
     - "cmi.command.fly"
     - "cmi.command.repair"
     - "cmi.command.chatcolor"
-  # Prefix cho mỗi tier
+  # Prefix for each tier
   prefixes:
     Booster: "&d[Booster] &r"
     SuperBooster: "&5[Super Booster] &r"
     MegaBooster: "&c[MEGA Booster] &r"
 
 # ==============================================
-# TỰ ĐỘNG KIỂM TRA & ĐỒNG BỘ
+# AUTO CHECK & SYNC
 # ==============================================
-# Tự động kiểm tra boost status
+# Automatically check boost status
 auto-check:
-  # Khi người chơi tham gia server
+  # When a player joins the server
   on-player-join: true
   
-  # Đồng bộ định kỳ tất cả người chơi online
+  # Periodically sync all online players
   periodic-sync:
     enabled: true
-    interval-minutes: 15  # Kiểm tra mỗi 15 phút
+    interval-minutes: 15  # Check every 15 minutes
     
-  # Kiểm tra tất cả players (kể cả offline) 
+  # Check all players (including offline)
   full-sync:
     enabled: true
-    interval-minutes: 60  # Kiểm tra mỗi 1 giờ
+    interval-minutes: 60  # Check every 1 hour
 
 # ==============================================
-# TỰ ĐỘNG XÓA RANK
+# AUTO RANK REMOVAL
 # ==============================================
-# Tự động xóa rank khi không boost nữa
+# Automatically remove rank when player stops boosting
 auto-remove:
   enabled: true
-  # thời gian ân hạn - cho thêm X phút trước khi xóa rank
-  # (Phòng trường hợp boost bị cancel nhầm)
+  # Grace period - allow X extra minutes before removing rank
+  # (In case a boost is accidentally cancelled)
   grace-period-minutes: 5
   
-  # Thông báo trước khi xóa
+  # Notify before removal
   notify-before-removal: true
-  warning-minutes: 1440  # 24 giờ
+  warning-minutes: 1440  # 24 hours
 
 # ==============================================
-# TỰ ĐỘNG NHẮC NHỞ LINK TÀI KHOẢN
+# AUTO ACCOUNT LINK REMINDER
 # ==============================================
-# Tự động nhắc người chơi link tài khoản Discord
+# Automatically remind players to link their Discord account
 link-reminder:
   enabled: true
-  # Nhắc khi tham gia server
+  # Remind when joining the server
   on-join: true
-  # Nhắc định kỳ khi chơi
+  # Remind periodically while playing
   periodic:
     enabled: true
     interval-minutes: 30
-  # Chỉ nhắc X lần, sau đó dừng
+  # Only remind X times, then stop
   max-reminders: 3
 
 # ==============================================
-# TỰ ĐỘNG THÔNG BÁO
+# AUTO NOTIFICATIONS
 # ==============================================
 notifications:
-  # Thông báo trong game
+  # In-game notifications
   in-game:
-    rank-granted: "&a&l✓ &aBạn đã nhận được hạng &e{rank} &anhờ đóng góp Boost Discord!"
-    rank-upgraded: "&a&l⬆ &aHạng của bạn đã được nâng lên &e{rank} &avới {boosts} lần Boost!"
-    rank-removed: "&c&l✗ &cHạng &e{rank} &ccủa bạn đã hết hạn (do dừng Boost Discord)"
-    rank-warning: "&e&l⚠ &eLượt Boost của bạn sắp hết hạn! Hãy Boost lại để duy trì hạng nhé."
-    link-reminder: "&e&l→ &eHãy liên kết Discord để nhận hạng Booster! &7/discord link"
+    rank-granted: "&a&l✓ &aYou have received the &e{rank} &arank for boosting our Discord server!"
+    rank-upgraded: "&a&l⬆ &aYour rank has been upgraded to &e{rank} &awith {boosts} boosts!"
+    rank-removed: "&c&l✗ &cYour &e{rank} &crank has expired (you stopped boosting Discord)"
+    rank-warning: "&e&l⚠ &eYour boost is about to expire! Boost again to keep your rank."
+    link-reminder: "&e&l→ &eLink your Discord account to receive the Booster rank! &7/discord link"
     
-  # Thông báo trên Discord
+  # Discord notifications
   discord:
     enabled: true
-    # Channel ID để gửi thông báo (để trống = disable)
+    # Channel ID to send notifications to (leave empty to disable)
     channel-id: ""
     
     # Embed messages
     messages:
       rank-granted:
-        title: "🎉 Booster Mới!"
-        description: "**{player}** vừa boost cho server và nhận được rank **{rank}**!"
+        title: "🎉 New Booster!"
+        description: "**{player}** just boosted the server and received the **{rank}** rank!"
         color: "5865F2"  # Discord blurple
         
       rank-upgraded:
-        title: "⬆️ Thăng Hạng!"
-        description: "**{player}** hiện đã đạt hạng **{rank}** với **{boosts}** lượt boost!"
+        title: "⬆️ Rank Upgraded!"
+        description: "**{player}** has reached the **{rank}** rank with **{boosts}** boosts!"
         color: "57F287"  # Green
 
       rank-removed:
-        title: "💔 Hết Hạn Boost"
-        description: "Lượt boost của **{player}** đã hết hạn. Chúng mình sẽ nhớ bạn lắm đó!"
+        title: "💔 Boost Expired"
+        description: "**{player}**'s boost has expired. We'll miss you!"
         color: "ED4245"  # Red
 
 # ==============================================
-# PHẦN THƯỞNG TỰ ĐỘNG
+# AUTO REWARDS
 # ==============================================
-# Tự động thực thi commands khi nhận rank
+# Automatically execute commands when a rank is granted
 auto-rewards:
   enabled: true
   
-  # Commands chạy khi NHẬN rank (chạy với quyền console)
+  # Commands to run when rank is GRANTED (executed with console permission)
   on-grant:
     - "money give {player} 10000"
     - "give {player} diamond 5"
     
-  # Lệnh chạy khi MẤT rank
+  # Commands to run when rank is REMOVED
   on-remove:
-    - "tellraw {player} {\"text\":\"Cảm ơn bạn đã Boost! ❤️\",\"color\":\"red\"}"
+    - "tellraw {player} {\"text\":\"Thank you for boosting! ❤️\",\"color\":\"red\"}"
 
 # ==============================================
-# TỰ ĐỘNG THỐNG KÊ
+# AUTO STATISTICS
 # ==============================================
-# Tự động theo dõi thống kê
+# Automatically track statistics
 statistics:
   enabled: true
-  # Lưu data vào file
+  # Save data to file
   save-to-file: true
   file-path: "plugins/DiscordBoostRank/stats.yml"
   
-  # Track những gì
+  # What to track
   track:
-    - "total-boosters"          # Tổng số người boost
-    - "total-boosts-received"   # Tổng số boost nhận được
-    - "boost-history"           # Lịch sử boost của mỗi player
-    - "current-tier-distribution" # Phân bố tier hiện tại
+    - "total-boosters"            # Total number of boosters
+    - "total-boosts-received"     # Total boosts received
+    - "boost-history"             # Boost history per player
+    - "current-tier-distribution" # Current tier distribution
 
 # ==============================================
-# TỰ ỘNG SAO LƯU
+# AUTO BACKUP
 # ==============================================
-# Tự động backup dữ liệu
+# Automatically backup data
 backup:
   enabled: true
   interval-hours: 24
-  max-backups: 7  # Giữ 7 bản backup gần nhất
+  max-backups: 7  # Keep the 7 most recent backups
   backup-path: "plugins/DiscordBoostRank/backups/"
 
 # ==============================================
-# CÀI ĐẶT NÂNG CAO
+# ADVANCED SETTINGS
 # ==============================================
 advanced:
-  # Tự động fix rank conflicts (nếu player có nhiều boost rank)
+  # Automatically fix rank conflicts (if player has multiple boost ranks)
   auto-fix-conflicts: true
   
-  # Tự động migrate data từ UUID cũ sang mới
+  # Automatically migrate data from old UUID to new
   auto-migrate-uuid: true
   
-  # Tự động thử lại nếu Discord API fail
+  # Automatically retry if Discord API fails
   auto-retry:
     enabled: true
     max-attempts: 3
     delay-seconds: 5
   
-  # Cache để giảm API calls
+  # Cache to reduce API calls
   cache:
     enabled: true
     duration-minutes: 5
@@ -195,7 +195,7 @@ logging:
   log-to-file: true
   file-path: "plugins/DiscordBoostRank/logs/"
   
-# Verbose logging (chi tiết hơn)
+# Verbose logging (more detailed)
 verbose:
   boost-events: false
   rank-changes: true
