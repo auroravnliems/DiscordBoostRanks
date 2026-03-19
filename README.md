@@ -1,37 +1,37 @@
 # DiscordBoostRank
 
-Plugin addon cho DiscordSRV để tự động trao rank cho người chơi khi họ boost Discord server.
+An addon plugin for DiscordSRV that automatically grants ranks to players when they boost your Discord server.
 
-## Yêu cầu
+## Requirements
 
 - **Minecraft Server**: Spigot/Paper 1.16+
 - **Java**: 17+
-- **Plugins bắt buộc**:
+- **Required Plugins**:
   - DiscordSRV (1.25.0+)
   - LuckPerms (5.4+)
 
-## Cài đặt
+## Installation
 
-1. Build plugin từ source code:
+1. Build the plugin from source:
    ```bash
    ./gradlew build
    ```
 
-2. File JAR sẽ được tạo ở: `build/libs/DiscordBoostRank-1.0.0.jar`
+2. The JAR file will be generated at: `build/libs/DiscordBoostRank-1.0.0.jar`
 
-3. Copy file JAR vào thư mục `plugins/` của server
+3. Copy the JAR file into your server's `plugins/` folder
 
-4. Khởi động lại server
+4. Restart the server
 
-5. Chỉnh sửa config tại `plugins/DiscordBoostRank/config.yml`
+5. Edit the configuration at `plugins/DiscordBoostRank/config.yml`
 
-## Cấu hình
+## Configuration
 
 ```yaml
-# Rank/Group sẽ được trao khi boost server
+# Rank/Group to grant when a player boosts the server
 boost-rank: "Booster"
 
-# Có tự động xóa rank khi hết boost không?
+# Automatically remove the rank when the player stops boosting?
 remove-on-unboost: true
 
 # Messages
@@ -43,13 +43,13 @@ messages:
 # Debug mode
 debug: false
 
-# Kiểm tra boost status mỗi X phút
+# Check boost status every X minutes
 periodic-check-minutes: 30
 ```
 
-## Tạo Boost Rank trong LuckPerms
+## Creating the Boost Rank in LuckPerms
 
-Trước khi sử dụng, bạn cần tạo group "Booster" trong LuckPerms:
+Before using the plugin, create the "Booster" group in LuckPerms:
 
 ```
 /lp creategroup Booster
@@ -57,49 +57,49 @@ Trước khi sử dụng, bạn cần tạo group "Booster" trong LuckPerms:
 /lp group Booster permission set some.permission.here
 ```
 
-## Lệnh
+## Commands
 
-- `/boostrankadmin` hoặc `/bra` - Hiển thị help
-- `/bra reload` - Reload config
-- `/bra check <player>` - Kiểm tra boost status của người chơi
+- `/boostrankadmin` or `/bra` - Show help
+- `/bra reload` - Reload configuration
+- `/bra check <player>` - Check a player's boost status
 
 **Permission**: `discordboostrank.admin`
 
-## Cách hoạt động
+## How It Works
 
-1. Người chơi link tài khoản Discord với Minecraft qua DiscordSRV (`/discord link`)
-2. Khi người chơi boost Discord server, plugin tự động:
-   - Phát hiện boost event
-   - Kiểm tra xem Discord user có link với Minecraft account không
-   - Tự động add rank "Booster" (hoặc tên bạn đặt) vào LuckPerms
-   - Gửi thông báo cho người chơi (nếu đang online)
-3. Khi hết boost, plugin tự động xóa rank (nếu `remove-on-unboost: true`)
+1. Players link their Discord account to Minecraft via DiscordSRV (`/discord link`)
+2. When a player boosts the Discord server, the plugin automatically:
+   - Detects the boost event
+   - Checks whether the Discord user is linked to a Minecraft account
+   - Adds the "Booster" rank (or your configured name) in LuckPerms
+   - Sends a notification to the player (if they are online)
+3. When they stop boosting, the plugin automatically removes the rank (if `remove-on-unboost: true`)
 
 ## Periodic Check
 
-Plugin có chức năng kiểm tra định kỳ để đảm bảo không bỏ sót:
-- Mặc định: Mỗi 30 phút kiểm tra tất cả boosters
-- Nếu phát hiện ai đó đang boost nhưng chưa có rank → tự động cấp
-- Nếu phát hiện ai đó không boost nhưng vẫn có rank → tự động xóa
+The plugin includes a periodic check to ensure no boosts are missed:
+- Default: Checks all boosters every 30 minutes
+- If a player is boosting but missing the rank → rank is granted automatically
+- If a player is not boosting but still has the rank → rank is removed automatically
 
 ## Debug Mode
 
-Bật debug mode trong config để xem log chi tiết:
+Enable debug mode in the config to view detailed logs:
 ```yaml
 debug: true
 ```
 
-Logs sẽ hiển thị:
-- Khi có người boost/unboost
-- Khi cấp/xóa rank
-- Khi chạy periodic check
+Logs will show:
+- When someone boosts or unboosted
+- When a rank is granted or removed
+- When a periodic check runs
 
 ## Support
 
-Nếu có vấn đề:
-1. Kiểm tra console logs
-2. Bật debug mode
-3. Dùng lệnh `/bra check <player>` để kiểm tra status
+If you encounter any issues:
+1. Check the console logs
+2. Enable debug mode
+3. Use `/bra check <player>` to verify a player's status
 
 ## License
 
